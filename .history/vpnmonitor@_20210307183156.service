@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenVPN tunnel for %I
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+
+[Service]
+Type=notify
+Restart=always
+RestartSec=5
+WatchdogSec=15
+PrivateTmp=true
+WorkingDirectory=/usr/lib/vpncheckandtoggle
+ExecStartPre=/usr/bin/bash vpncheckandtoggle.sh -v %i -a start
+ExecStart=/usr/bin/bash vpn-watchdog.sh -v %i
+ExecStopPost=/usr/bin/bash vpncheckandtoggle.sh -v %i -a stop
+[Install]
+WantedBy=multi-user.target

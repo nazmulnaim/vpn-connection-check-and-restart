@@ -1,0 +1,9 @@
+[Unit]
+Description=My Test
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/mytest.sh
+
+[Install]
+WantedBy=multi-user.target
